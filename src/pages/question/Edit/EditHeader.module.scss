@@ -1,0 +1,32 @@
+.header-wrapper {
+  background-color: #fff;
+  // background-color: yellow;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 6px 0;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  margin: 0 30px;
+
+  .h1 {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .left {
+    flex: 1;
+    text-align: left;
+  }
+
+  .main {
+    flex: 1;
+    text-align: center;
+  }
+
+  .right {
+    flex: 1;
+    text-align: right;
+  }
+}

@@ -1,0 +1,16 @@
+.wrapper{
+    margin-bottom: 12px;
+    cursor: pointer;
+    background-color: #f6f5f8;
+    border:1px solid #fff;
+    padding: 12px;
+    border-radius: 3px;
+
+    &:hover{
+        border-color: #a19a9a;
+    }
+}
+
+.component{
+    pointer-events: none;
+}
