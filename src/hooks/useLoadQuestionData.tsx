@@ -23,12 +23,13 @@ function useLoadQuestionData() {
 
   useEffect(() => {
     if (!data) return;
+    data.componentList=JSON.parse(data.componentList);
     const {
       title = "",
       desc = "",
       js = "",
       css = "",
-      isPublished = false,
+      isPublished = 0,
       componentList = [],
     } = data;
     let selectedId = "";

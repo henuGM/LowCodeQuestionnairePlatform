@@ -6,10 +6,11 @@ import {
   DeleteOutlined,
   EditOutlined,
   ExclamationCircleOutlined,
+  HighlightOutlined,
   LineChartOutlined,
   StarOutlined,
 } from "@ant-design/icons";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link,useLocation } from "react-router-dom";
 import { useRequest } from "ahooks";
 import { duplicateQuestionService, updateQuestionService } from "../services/question";
 type PropsType = {
@@ -22,10 +23,13 @@ type PropsType = {
 };
 const QuestionCard: FC<PropsType> = (props: PropsType) => {
   const nav = useNavigate();
+  const {pathname}=useLocation();
+console.log(pathname);
   const { confirm } = Modal;
   const { id, title, isPublished, answerCount, createdAt, isStar } = props;
 
   const [isStarState, setIsStarState] = useState(isStar);
+  const [published, setPublished] = useState(isPublished);
   const { loading: changeStarLoading, run: changeStar } = useRequest(
     async () => {
       await updateQuestionService(id, { isStar: !isStarState?1:0 });
@@ -35,6 +39,19 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
       onSuccess(){
         setIsStarState(!isStarState?1:0);
         message.success('已更新')
+      }
+    }
+  );
+
+  const { loading: changePublishLoading, run: changePublish } = useRequest(
+    async () => {
+      await updateQuestionService(id, { isPublished: !published?1:0 });
+    },
+    {
+      manual: true,
+      onSuccess(){
+        message.success(!published?'已发布问卷':'已取消发布')
+        setPublished(!published?1:0);
       }
     }
   );
@@ -74,14 +91,14 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
   };
 
   if(isDeletedState) return null;
-  return (
+  return (!isStarState||pathname=="/manage/star"?
     <>
       <div className={styles.container}>
         <div className={styles.title}>
           <div className={styles.left}>
             <Link
               to={
-                isPublished ? `/question/stat/${id}` : `/question/edit/${id}`
+                published ? `/question/stat/${id}` : `/question/edit/${id}`
               }
             >
               <Space>
@@ -92,7 +109,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
           </div>
           <div className={styles.right}>
             <Space>
-              {isPublished ? (
+              {published ? (
                 <Tag color="processing">已发布</Tag>
               ) : (
                 <Tag>未发布</Tag>
@@ -111,6 +128,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
                 type="text"
                 size="small"
                 onClick={() => nav(`/question/edit/${id}`)}
+                disabled={!!published}
               >
                 编辑问卷
               </Button>
@@ -119,7 +137,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
                 type="text"
                 size="small"
                 onClick={() => nav(`/question/stat/${id}`)}
-                disabled={!isPublished}
+                disabled={!published}
               >
                 问卷统计
               </Button>
@@ -127,6 +145,14 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
           </div>
           <div className={styles.right}>
             <Space>
+            <Button
+                type="text"
+                icon={<HighlightOutlined /> }
+                size="small"
+                onClick={changePublish}
+              >
+                {published ? "取消发布" : "发布问卷"}
+              </Button>
               <Button
                 type="text"
                 icon={<StarOutlined />}
@@ -136,16 +162,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
               >
                 {isStarState ? "取消标星" : "标星"}
               </Button>
-              <Popconfirm
-                title="确认复制该问卷？"
-                okText="确定"
-                cancelText="取消"
-                onConfirm={duplicate}
-              >
-                <Button type="text" icon={<CopyOutlined />} size="small" disabled={duplicateLoading}>
-                  复制
-                </Button>
-              </Popconfirm>
+          
 
               <Button
                 type="text"
@@ -160,7 +177,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
           </div>
         </div>
       </div>
-    </>
+    </>:<></>
   );
 };
 export default QuestionCard;

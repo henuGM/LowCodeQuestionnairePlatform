@@ -45,7 +45,6 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
     const colTitle = props!.title || title
 
     return {
-      // title: colTitle,
       title: (
         <div
           style={{ cursor: 'pointer' }}

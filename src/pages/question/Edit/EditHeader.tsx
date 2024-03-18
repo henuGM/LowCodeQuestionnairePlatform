@@ -65,7 +65,7 @@ const SaveButton: FC = () => {
   const { loading, run: save } = useRequest(
     async () => {
       if (!id) return
-      await updateQuestionService(parseInt(id), { ...pageInfo, componentList })
+      await updateQuestionService(parseInt(id), { ...pageInfo, componentList:JSON.stringify(componentList) })
     },
     { manual: true }
   )
@@ -104,7 +104,7 @@ const PublishButton: FC = () => {
       if (!id) return
       await updateQuestionService(parseInt(id), {
         ...pageInfo,
-        componentList,
+        componentList: JSON.stringify(componentList),
         isPublished: 1, // 标志着问卷已经被发布
       })
     },

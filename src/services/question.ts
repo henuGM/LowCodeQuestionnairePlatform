@@ -1,3 +1,4 @@
+import qs from "qs"
 import axios, {ResDataType,ResQuestionType} from "./ajax"
 
 type SearchOption={
@@ -37,8 +38,9 @@ export async function duplicateQuestionService(id:number):Promise<ResDataType>{
     return data;
 }
 
-export async function deleteQuestionService(ids:string[]):Promise<ResDataType>{
+export async function deleteQuestionService(ids:number[]):Promise<ResDataType>{
     const url='/api/question';
-    const data=(await axios.delete(url,{data:{ids}})) as ResDataType;
+    const body={data:ids};
+    const data=(await axios.delete(url,body)) as ResDataType;
     return data;
 }

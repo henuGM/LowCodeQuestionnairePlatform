@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./common.module.scss";
 import QuestionCard from "../../components/QuestionCard";
 import { useRequest, useTitle } from "ahooks";
@@ -38,7 +38,7 @@ const tableColumns = [
 ];
 
 const Trash: FC = () => {
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const { data = {}, loading, refresh } = useLoadingQuestionListData({isDeleted:1});
   const { list = [], total = 0 } = data;
   useTitle("问卷-----回收站");
@@ -46,7 +46,7 @@ const Trash: FC = () => {
   const {run:recover,}=useRequest(
     async ()=>{
       for await (const id of selectedIds){
-        await updateQuestionService(parseInt(id),{isDeleted:0})
+        await updateQuestionService(id,{isDeleted:0})
       }
     },{
       manual:true,
@@ -92,19 +92,23 @@ const Trash: FC = () => {
         </Space>
       </div>
       <Table
-        dataSource={list}
+        dataSource={list.filter((item:any) => item.isDeleted)}
         columns={tableColumns}
         pagination={false}
-        rowKey={(p) => p._id}
+        rowKey={(p) => p.id}
         rowSelection={{
           type: "checkbox",
           onChange: (selectedRowKeys) => {
-            setSelectedIds(selectedRowKeys as string[]);
+            setSelectedIds(selectedRowKeys as number[]);
+            console.log(selectedRowKeys);
           },
         }}
       />
     </>
   );
+  useEffect(()=>{
+    console.log(selectedIds);
+  },[selectedIds]);
   return (
     <>
       <div className={styles.header}>

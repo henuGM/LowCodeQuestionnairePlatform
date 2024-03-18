@@ -63,12 +63,12 @@ const Stat: FC = () => {
             setSelectedComponentType={setSelectedComponentType}
           />
         </div>
-        <div className={styles.right}>
+        {/* <div className={styles.right}>
           <ChartStat
             selectedComponentId={selectedComponentId}
             selectedComponentType={selectedComponentType}
           />
-        </div>
+        </div> */}
       </>
     )
   }
