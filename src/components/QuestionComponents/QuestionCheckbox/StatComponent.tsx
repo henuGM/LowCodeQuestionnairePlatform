@@ -21,7 +21,6 @@ const StatComponent: FC<QuestionCheckboxStatPropsType> = ({ stat }) => {
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-          {/* <Legend /> */}
           <Bar dataKey="count" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>

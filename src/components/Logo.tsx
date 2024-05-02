@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { Space, Typography } from "antd";
-import { FormOutlined } from "@ant-design/icons";
+import { ScheduleTwoTone } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import styles from "./Logo.module.scss";
 import useGetUserInfo from "../hooks/useGetUserInfo";
@@ -20,7 +20,8 @@ const Logo: FC = () => {
       <Link to={pathname}>
         <Space>
           <Title>
-            <FormOutlined />
+            {/* <FormOutlined /> */}
+            <ScheduleTwoTone />
           </Title>
           <Title>问卷</Title>
         </Space>

@@ -41,7 +41,7 @@ const Lib: FC = () => {
         const { groupId, groupName, components } = group;
         return (
           <div key={groupId} >
-            <Title
+            {/* <Title
               level={3}
               style={{
                 fontSize: "16px",
@@ -49,7 +49,7 @@ const Lib: FC = () => {
               }}
             >
               {groupName}
-            </Title>
+            </Title> */}
             {components.map((c) => GenComponent(c))}
           </div>
         );

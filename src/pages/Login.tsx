@@ -8,7 +8,6 @@ import {
   Checkbox,
   message,
 } from "antd";
-import { UserAddOutlined } from "@ant-design/icons";
 import styles from "./Login.module.scss";
 import { MANAGE_INDEX_PATHNAME, REGISTER_PATHNAME } from "../router";
 import { Link, useNavigate } from "react-router-dom";
@@ -69,9 +68,6 @@ const Login: FC = () => {
     <div className={styles.container}>
       <div>
         <Space>
-          <Title level={2}>
-            <UserAddOutlined />
-          </Title>
           <Title level={2}>用户登录</Title>
         </Space>
       </div>
@@ -105,6 +101,7 @@ const Login: FC = () => {
             rules={[{ required: true, message: "请输入密码" }]}
           >
             <Input.Password />
+            {/* <Input /> */}
           </Form.Item>
           <Form.Item
             name="remember"

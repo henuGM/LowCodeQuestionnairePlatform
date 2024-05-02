@@ -8,7 +8,7 @@ type SearchOption={
     page:number
     pageSize:number
 }
-export async function getQuestionService(id: string): Promise<ResDataType>{
+export async function getQuestionService(id: number): Promise<ResDataType>{//根据questionID查询列表2
     const url=`/api/question/${id}`;
     const data=(await axios.get(url)) as ResDataType;
     return data;
@@ -21,7 +21,7 @@ export async function createQuestionService():Promise<ResDataType>{
 }
 
 export async function getQuestionListService(opt:Partial<SearchOption> = {}):Promise<ResDataType>{
-    const url='/api/question';
+    const url='/api/question';//根据分页获取questionID数组
     const data=(await axios.get(url,{params:opt})) as ResDataType;
     return data;
 }

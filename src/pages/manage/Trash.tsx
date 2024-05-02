@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import styles from "./common.module.scss";
-import QuestionCard from "../../components/QuestionCard";
+import QuestionCard from "../../components/QuestionListView";
 import { useRequest, useTitle } from "ahooks";
 import { Empty, Typography, Table, Tag, Space, Button, Modal, Spin, message } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
@@ -111,12 +111,12 @@ const Trash: FC = () => {
   },[selectedIds]);
   return (
     <>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <div className={styles.left}>
           <Title level={3}>回收站</Title>
         </div>
         <div className={styles.right}><ListSearch/></div>
-      </div>
+      </div> */}
       <div className={styles.content}>
       {loading&&(
           <div style={{textAlign:"center",marginTop:'-22px'}}>

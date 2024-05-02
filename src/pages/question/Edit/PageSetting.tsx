@@ -32,12 +32,12 @@ const PageSetting: FC = () => {
       <Form.Item label="问卷描述" name="desc">
         <TextArea placeholder="问卷描述..." />
       </Form.Item>
-      <Form.Item label="样式代码" name="css">
+      {/* <Form.Item label="样式代码" name="css">
         <TextArea placeholder="输入 CSS 样式代码..." />
       </Form.Item>
       <Form.Item label="脚本代码" name="js">
         <TextArea placeholder="输入 JS 脚本代码..." />
-      </Form.Item>
+      </Form.Item> */}
     </Form>
   )
 }

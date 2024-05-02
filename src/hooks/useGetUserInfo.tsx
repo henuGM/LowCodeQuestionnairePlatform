@@ -3,9 +3,8 @@ import { StateType } from "../store";
 import { UserStateType } from "../store/userReducer";
 
 function useGetUserInfo() {
-  const { username, nickname } = useSelector<StateType>(
-    (state) => state.user
-  ) as UserStateType;
-  return { username, nickname };
+  const { id, username, nickname, create_time, update_time } =
+    useSelector<StateType>((state) => state.user) as UserStateType;
+  return { id, username, nickname, create_time, update_time };
 }
 export default useGetUserInfo;

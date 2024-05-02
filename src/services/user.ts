@@ -27,3 +27,11 @@ export async function loginService(
   const data = (await axios.post(url, qs.stringify(body))) as ResDataType;
   return data;
 }
+
+export async function updateUserInfoService(username: string, nickname: string): Promise<ResDataType> {
+  const url = "/api/user/info";
+  const body = { username, nickname }; 
+  console.log("body",body);
+  const data = (await axios.post(url, qs.stringify(body))) as ResDataType;
+  return data;
+}

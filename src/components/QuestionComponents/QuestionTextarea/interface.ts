@@ -7,6 +7,6 @@ export type QuestionTextareaPropsType = {
 }
 
 export const QuestionTextareaDefaultProps: QuestionTextareaPropsType = {
-  title: '多行输入标题',
+  title: '长文本',
   placeholder: '请输入...',
 }

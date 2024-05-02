@@ -1,0 +1,43 @@
+// NotFound.module.scss
+
+.notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 64px - 65px);
+    background-color: #f0f2f5; // 保持与登录和注册页面背景色一致
+    padding: 40px;
+  
+    .ant-result {
+      width: 50%;
+      max-width: 600px;
+      text-align: center;
+  
+      .ant-result-title {
+        font-size: 24px;
+        color: #333;
+      }
+  
+      .ant-result-subtitle {
+        font-size: 16px;
+        color: #666;
+        margin-top: 16px;
+      }
+  
+      .ant-result-extra {
+        margin-top: 32px;
+      }
+  
+      .ant-btn-primary {
+        background-color: #007bff;
+        border-color: #0062cc;
+        color: #fff;
+  
+        &:hover {
+          background-color: #0056b3;
+          border-color: #0056b3;
+        }
+      }
+    }
+  }

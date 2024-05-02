@@ -21,6 +21,7 @@
     "immer": "^10.0.3",
     "lodash.clonedeep": "^4.5.0",
     "react": "^18.2.0",
+    "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.1",
@@ -62,6 +63,7 @@
   "devDependencies": {
     "@craco/craco": "^7.1.0",
     "@types/lodash.clonedeep": "^4.5.9",
-    "@types/mockjs": "^1.0.10"
+    "@types/mockjs": "^1.0.10",
+    "@types/react-csv": "^1.1.10"
   }
 }

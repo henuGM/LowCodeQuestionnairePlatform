@@ -44,6 +44,7 @@ const TitleElem: FC = () => {
       <Button
         icon={<EditOutlined />}
         type="text"
+        style={{color: "#fff" }}
         onClick={() => {
           SetEditState(true);
           setTimeout(() => {
@@ -86,9 +87,10 @@ const SaveButton: FC = () => {
   )
 
   return (
-    <Button onClick={save} disabled={loading} icon={loading ? <LoadingOutlined /> : null}>
-      保存
-    </Button>
+    // <Button onClick={save} disabled={loading} icon={loading ? <LoadingOutlined /> : null}>
+    //   保存
+    // </Button>
+  <></>
   )
 }
 
@@ -112,13 +114,16 @@ const PublishButton: FC = () => {
       manual: true,
       onSuccess() {
         message.success('发布成功')
-        nav('/question/stat/' + id) // 发布成功，跳转到统计页面
+        setTimeout(()=>{
+          nav('/question/stat/' + id) // 发布成功，跳转到统计页面
+        },1000)
+
       },
     }
   )
 
   return (
-    <Button type="primary" onClick={pub} disabled={loading}>
+    <Button type="dashed" onClick={pub} disabled={loading}>
       发布
     </Button>
   )
@@ -133,8 +138,7 @@ const EditHeader: FC = () => {
       <div className={styles.header}>
         <div className={styles.left}>
           <Space>
-            <Button type="link" icon={<LeftOutlined />} onClick={() => nav(-1)}>
-              返回
+            <Button type="link" icon={<LeftOutlined />} style={{color:"#fff"}} onClick={() => nav(-1)}>
             </Button>
             <TitleElem />
           </Space>

@@ -6,7 +6,7 @@ import undoable, { StateWithHistory, excludeAction } from "redux-undo";
 
 export type StateType = {
   user: UserStateType;
-  components: StateWithHistory<ComponentsStateType>; // 增加了 undo
+  components: StateWithHistory<ComponentsStateType>; 
   pageInfo: PageInfoType;
 };
 
@@ -14,7 +14,7 @@ export default configureStore({
   reducer: {
     user: userReducer,
     components: undoable(componentsReducer, {
-      limit: 20, // 限制 undo 20 步
+      limit: 20,
       filter: excludeAction([
         "components/resetComponents",
         "components/changeSelectedId",

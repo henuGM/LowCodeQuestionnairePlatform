@@ -13,8 +13,9 @@ function useLoadUserData(){
         {
             manual:true,
             onSuccess(result){
-                const {username,nickname}=result;
-                dispath(loginReducer({username,nickname}))
+                console.log("result",result);
+                const {id,username,nickname,create_time,update_time}=result;
+                dispath(loginReducer({id,username,nickname,create_time,update_time}))
             },
             onFinally(){
                 setWaitingUserData(false)

@@ -1,4 +1,4 @@
-import React, { FC, useRef, useMemo, useState } from "react";
+import React, { FC, useRef, useMemo, useState, useEffect } from "react";
 import {
   Space,
   Button,
@@ -22,10 +22,15 @@ const { Title } = Typography;
 const StatHeader: FC = () => {
   const nav = useNavigate();
   const { id } = useParams();
+  
 
   const { title, isPublished } = useGetPageInfo();
+  console.log("isPublished",isPublished);
   const [published,setPublished]=useState(isPublished);
-
+  console.log("published",published);
+  useEffect(()=>{
+    setPublished(isPublished)
+  },[isPublished])
   const { loading, run: pub } = useRequest(
     async () => {
       if (!id) return
@@ -54,14 +59,12 @@ const StatHeader: FC = () => {
 
  
 
-  // 使用 useMemo 1. 依赖项是否经常变化; 2. 缓存的元素是否创建成本较高
-  const LinkAndQRCodeElem = useMemo(() => {
+  const LinkAndQRCodeElem = useMemo(()=>
+    {
     if (!published) return null;
 
-    // 拼接 url ，需要参考 C 端的规则
     const url = `http://localhost:3000/question/${id}`;
 
-    // 定义二维码组件
     const QRCodeElem = (
       <div style={{ textAlign: "center" }}>
         <QRCode value={url} size={150} />
@@ -79,15 +82,14 @@ const StatHeader: FC = () => {
         </Popover>
       </Space>
     );
-  }, [id, published]);
+  },[published,id])
 
   return (
     <div className={styles["header-wrapper"]}>
       <div className={styles.header}>
         <div className={styles.left}>
           <Space>
-            <Button type="link" icon={<LeftOutlined />} onClick={() => nav(-1)}>
-              返回
+            <Button type="link" icon={<LeftOutlined />} style={{color:"#fff"}} onClick={() => nav(-1)}>
             </Button>
             <Title className={styles.h1}>{title}</Title>
           </Space>

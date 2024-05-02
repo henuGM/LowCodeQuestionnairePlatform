@@ -1,7 +1,67 @@
-.container{
-    height: calc(100vh - 64px - 65px);
+// Register.module.scss
+
+.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
+    height: calc(100vh - 64px - 65px);
+    background-color: #F5F5F5; // 保持与登录页面背景色一致
+    padding: 40px;
+  
+    // 注册表单容器
+    & > div:nth-child(2) {
+      width: 400px;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      
+      // 输入框样式保持一致
+      .ant-form-item-control-input {
+        .ant-input,
+        .ant-input-affix-wrapper {
+          height: 48px; // 保持与登录页面输入框高度一致
+          font-size: 14px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          padding: 0 16px;
+          box-sizing: border-box;
+        }
+        
+        .ant-input-affix-wrapper.ant-input-affix-wrapper-password {
+          height: inherit;
+        }
+      }
+      
+      // 标签样式保持一致
+      .ant-form-item-label {
+        color: #666;
+        font-size: 14px;
+        line-height: 24px;
+      }
+    }
+  
+    // 按钮和链接样式保持一致，但可以稍作区分
+    & > div:last-child {
+      .ant-btn-primary {
+        background-color: #00B8D9; // 改变注册按钮颜色以示区别
+        border-color: #009ACD;
+        
+        &:hover {
+          background-color: #008BA3;
+          border-color: #008BA3;
+        }
+      }
+      
+      .ant-btn-link {
+        color: #007bff;
+        font-size: 14px;
+        text-decoration: none;
+        
+        &:hover {
+          color: #0056b3;
+        }
+      }
+    }
+  }

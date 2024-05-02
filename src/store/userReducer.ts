@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type UserStateType={
+    id:number,
     username:string,
-    nickname:string
+    nickname:string,
+    create_time:string,
+    update_time:string
 }
 
-const INIT_STATE:UserStateType={username:'',nickname:''};
+const INIT_STATE:UserStateType={id:-1,username:'',nickname:'',create_time:'',update_time:''};
 
 export const userSlice=createSlice({
     name:'user',

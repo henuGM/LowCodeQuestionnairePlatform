@@ -30,7 +30,7 @@ const MainLayout: FC = () => {
           <Outlet />
         )}
       </Content>
-      <Footer className={styles.footer}>问卷 &copy; 2024</Footer>
+      {/* <Footer className={styles.footer}>问卷 &copy; 2024</Footer> */}
     </Layout>
   );
 };

@@ -15,7 +15,8 @@ function useLoadQuestionData() {
 
   async function load(id: string) {
     if (!id) throw new Error("没有问卷ID");
-    const data = await getQuestionService(id);
+    const data = await getQuestionService(parseInt(id));
+    console.log("data",data);
     return data;
   }
 

@@ -1,5 +1,6 @@
 .header {
-  padding: 0 24px;
+  padding: -10px 24px;
+  background-color: #345CA3;
 
   .left {
     float: left;
@@ -9,7 +10,7 @@
   }
 }
 .main {
-  min-height: calc(100vh - 64px - 65px);
+  min-height: calc(100vh - 64px );
 }
 .footer {
   text-align: center;

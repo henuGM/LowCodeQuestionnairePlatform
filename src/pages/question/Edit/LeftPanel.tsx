@@ -9,8 +9,8 @@ const LeftPanel: FC = () => {
       key: "componentLib",
       label: (
         <Space>
-          <AppstoreOutlined />
-          组件库
+          {/* <AppstoreOutlined /> */}
+          组件列表
         </Space>
       ),
       children: <Lib/>,
@@ -19,8 +19,8 @@ const LeftPanel: FC = () => {
       key: "layers",
       label: (
         <Space>
-          <BarsOutlined />
-          图层
+          {/* <BarsOutlined /> */}
+          图层列表
         </Space>
       ),
       children: <Layers/>,

@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Typography, Space, Form, Input, Button, message } from "antd";
-import { UserAddOutlined } from "@ant-design/icons";
 import styles from "./Register.module.scss";
 import { LOGIN_PATHNAME } from "../router";
 import { Link, useNavigate } from "react-router-dom";
@@ -30,9 +29,6 @@ const Register: FC = () => {
     <div className={styles.container}>
       <div>
         <Space>
-          <Title level={2}>
-            <UserAddOutlined />
-          </Title>
           <Title level={1}>注册新用户</Title>
         </Space>
       </div>

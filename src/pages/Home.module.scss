@@ -1,15 +1,54 @@
+// Home.module.scss
+
 .container {
-  height: calc(100vh - 64px - 65px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-image: linear-gradient(to top, #fddb92 0%, #d1fdff 100%);
-  .info {
+  height: calc(100vh - 64px - 65px); // 考虑到顶部和底部导航栏的高度
+  display: grid;
+  place-items: center;
+  background-image: radial-gradient(circle at center, #fddb92, #d1fdff); // 使用径向渐变背景
+  padding: 5vh 10vw; // 添加内外边距以增强视觉效果
+
+  & > .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    button {
-      height: 60px;
-      font-size: 24px;
+    max-width: 800px; // 为内容设定最大宽度以适应不同屏幕尺寸
+
+    & > h2 {
+      color: #3a3a3a;
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      text-transform: uppercase; // 将标题改为全大写
+    }
+
+    & > p {
+      color: #6c6c6c;
+      font-size: 20px;
+      line-height: 1.5;
+      margin-bottom: 3rem;
+      letter-spacing: 0.1em; // 为段落增加字间距
+    }
+
+    & > .button {
+      // margin-top: 3rem;
+      width: 100%;
+      
+      & > button {
+        height: 60px;
+        font-size: 24px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease-in-out;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
     }
   }
 }

@@ -1,20 +1,34 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./common.module.scss";
-import QuestionCard from "../../components/QuestionCard";
+import QuestionCard from "../../components/QuestionListView";
 import { useDebounceFn, useRequest, useTitle } from "ahooks";
-import { Empty, Spin, Typography } from "antd";
+import { Divider, Empty, FloatButton, Spin, Typography, message } from "antd";
 import ListSearch from "../../components/ListSearch";
-import { getQuestionListService } from "../../services/question";
-import { useSearchParams } from "react-router-dom";
+import {
+  createQuestionService,
+  getQuestionListService,
+} from "../../services/question";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { LIST_PAGE_SIZE, LIST_SEARCH_PARAM_KEY } from "../../constant";
+import QuestionListView from "../../components/QuestionListView";
+import QuestionCardView from "../../components/QuestionCardView";
+import {
+  PlusOutlined,
+  QuestionCircleOutlined,
+  SwapOutlined,
+} from "@ant-design/icons";
+import Waterfall from "../../components/WaterFall";
 const { Title } = Typography;
 const List: FC = () => {
   useTitle("问卷-----我的");
+  const nav = useNavigate();
 
   const [page, setPage] = useState(1);
   const [list, setList] = useState([]);
   const [total, setTotal] = useState(0);
   const [started, setStarted] = useState(false);
+  const [isCardView, setIsCardView] = useState(false);
+
   const havaMoreData = total > list.length;
 
   const [searchParams] = useSearchParams();
@@ -83,23 +97,79 @@ const List: FC = () => {
     setTotal(0);
   }, [keyword]);
 
-  return (
+  const { run: handleCreateClick } = useRequest(createQuestionService, {
+    manual: true,
+    onSuccess(result) {
+      nav(`/question/edit/${result}`);
+      message.success("创建成功");
+    },
+  });
+
+  const listView = (
     <>
-      <div className={styles.header}>
-        <div className={styles.left}>
-          <Title level={3}>我的问卷</Title>
-        </div>
-        <div className={styles.right}>
-          <ListSearch />
-        </div>
-      </div>
-      <div className={styles.content}>
+      {list.length > 0 &&
+        list.map((q: any) => {
+          const { id } = q;
+          return <QuestionListView key={id} {...q} />;
+        })}
+    </>
+  );
+  const cardView = (
+    <div>
+      <Waterfall data={list} columnCount={3} />
+      {/* <Divider />
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          flexDirection: "column",
+          height: 2000,
+          backgroundColor: "red",
+        }}
+      >
         {list.length > 0 &&
           list.map((q: any) => {
             const { id } = q;
-            return <QuestionCard key={id} {...q} />;
+            console.log('q',q);
+            console.log('id',id);
+            return <QuestionCardView key={id} {...q} />;
           })}
-      </div>
+      </div> */}
+    </div>
+  );
+  // const cardView = (
+  //   <div
+  //     style={{
+  //       display: "flex",
+  //       flexWrap:"wrap",
+  //       flexDirection: "column",
+  //       height: 2000,
+  //       backgroundColor:"red"
+  //     }}
+  //   >
+  //     {list.length > 0 &&
+  //       list.map((q: any) => {
+  //         const { id } = q;
+  //         return <QuestionCardView key={id} {...q} />;
+  //       })}
+  //   </div>
+  // );
+
+  return (
+    <>
+      <FloatButton.Group shape="circle" style={{ right: 40 }}>
+        <FloatButton
+          icon={<SwapOutlined />}
+          onClick={() => setIsCardView(!isCardView)}
+        />
+        <FloatButton
+          icon={<PlusOutlined />}
+          type="primary"
+          onClick={handleCreateClick}
+        />
+        <FloatButton.BackTop visibilityHeight={0} />
+      </FloatButton.Group>
+      <div className={styles.content}>{isCardView ? cardView : listView}</div>
       <div className={styles.footer}>
         <div ref={containerRef}>{LoadMoreContentElem}</div>
       </div>

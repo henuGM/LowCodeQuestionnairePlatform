@@ -11,6 +11,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import Register from "../pages/Register";
+import UserInfoPage from "../pages/UserInfoPage";
 
 const Edit = lazy(() => import(/* webpackChunkName: "editPage" */ '../pages/question/Edit'))
 const Stat = lazy(() => import(/* webpackChunkName: "statPage" */ '../pages/question/Stat'))
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/userInfo",
+        element: <UserInfoPage/>
       },
       {
         path: "/manage",

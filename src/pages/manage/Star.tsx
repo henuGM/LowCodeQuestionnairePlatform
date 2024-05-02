@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import styles from "./common.module.scss";
-import QuestionCard from "../../components/QuestionCard";
+import QuestionCard from "../../components/QuestionListView";
 import { useTitle } from "ahooks";
 import { Empty, Spin, Typography } from "antd";
 import ListSearch from "../../components/ListSearch";
@@ -15,14 +15,14 @@ const Star: FC = () => {
 
   return (
     <>
-      <div className={styles.header}>
+      {/* <div className={styles.header}>
         <div className={styles.left}>
           <Title level={3}>星标问卷</Title>
         </div>
         <div className={styles.right}>
           <ListSearch />
         </div>
-      </div>
+      </div> */}
       <div className={styles.content}>
         {loading && (
           <div style={{ textAlign: "center", marginTop: "-22px" }}>

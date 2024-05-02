@@ -42,7 +42,7 @@ const ChartStat: FC<PropsType> = (props: PropsType) => {
 
   return (
     <>
-      <Title level={3}>图表统计</Title>
+      {/* <Title level={3}>图表统计</Title> */}
       <div>{genStatElem()}</div>
     </>
   )
