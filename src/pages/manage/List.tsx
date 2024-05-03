@@ -1,24 +1,17 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./common.module.scss";
-import QuestionCard from "../../components/QuestionListView";
 import { useDebounceFn, useRequest, useTitle } from "ahooks";
-import { Divider, Empty, FloatButton, Spin, Typography, message } from "antd";
-import ListSearch from "../../components/ListSearch";
+import { Empty, FloatButton, Spin, message } from "antd";
 import {
   createQuestionService,
   getQuestionListService,
 } from "../../services/question";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { LIST_PAGE_SIZE, LIST_SEARCH_PARAM_KEY } from "../../constant";
-import QuestionListView from "../../components/QuestionListView";
-import QuestionCardView from "../../components/QuestionCardView";
-import {
-  PlusOutlined,
-  QuestionCircleOutlined,
-  SwapOutlined,
-} from "@ant-design/icons";
-import Waterfall from "../../components/WaterFall";
-const { Title } = Typography;
+import QuestionListView from "../../components/WaterFallComponents/QuestionListView";
+import { PlusOutlined, SwapOutlined } from "@ant-design/icons";
+import Waterfall from "../../components/WaterFallComponents/WaterFall";
+
 const List: FC = () => {
   useTitle("问卷-----我的");
   const nav = useNavigate();
@@ -115,45 +108,8 @@ const List: FC = () => {
     </>
   );
   const cardView = (
-    <div>
       <Waterfall data={list} columnCount={3} />
-      {/* <Divider />
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          flexDirection: "column",
-          height: 2000,
-          backgroundColor: "red",
-        }}
-      >
-        {list.length > 0 &&
-          list.map((q: any) => {
-            const { id } = q;
-            console.log('q',q);
-            console.log('id',id);
-            return <QuestionCardView key={id} {...q} />;
-          })}
-      </div> */}
-    </div>
   );
-  // const cardView = (
-  //   <div
-  //     style={{
-  //       display: "flex",
-  //       flexWrap:"wrap",
-  //       flexDirection: "column",
-  //       height: 2000,
-  //       backgroundColor:"red"
-  //     }}
-  //   >
-  //     {list.length > 0 &&
-  //       list.map((q: any) => {
-  //         const { id } = q;
-  //         return <QuestionCardView key={id} {...q} />;
-  //       })}
-  //   </div>
-  // );
 
   return (
     <>

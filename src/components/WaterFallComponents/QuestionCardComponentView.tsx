@@ -1,8 +1,13 @@
-import React, { DetailedHTMLProps, FC, HTMLAttributes, LegacyRef, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  DetailedHTMLProps,
+  FC,
+  HTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import classNames from "classnames";
-// import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-import useGetComponentInfo from "../hooks/useGetComponentInfo";
-import { getComponentConfByType } from "../components/QuestionComponents/index";
+import { getComponentConfByType } from "../QuestionComponents/index";
 import styles from "./QuestionCardComponentView.module.scss";
 import { Button, Empty } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -11,36 +16,34 @@ type PropsType = {
   id: number;
   selectedComponentId: string;
   componentListString: string;
+  isPublished: number;
   callback: () => void;
 };
 
 const QuestionCardComponentView: FC<PropsType> = (props) => {
-  const { id, selectedComponentId, componentListString,callback } = props;
+  const {
+    id,
+    selectedComponentId,
+    componentListString,
+    isPublished,
+    callback,
+  } = props;
   const nav = useNavigate();
-  const ref=useRef<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>>()
+  const ref =
+    useRef<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>>();
   const componentList = JSON.parse(componentListString);
 
-  // useLayoutEffect(() => {
-  //   console.log('加载完了？');
-  //   if(componentListString.length>5){
-  //     callback(true);
-  //   }else{
-  //     callback(false);
-  //   }
-  // }, []);
-  const [flag,setFlag]=useState(false);
-  const timer=setTimeout(()=>{
+  const [flag, setFlag] = useState(false);
+  const timer = setTimeout(() => {
     setFlag(true);
-  },1000)
+  }, 100);
 
   useEffect(() => {
-    if(flag||componentListString.length > 5){
-      // setTimeout(()=>{
+    if (flag || componentListString.length > 5) {
       clearTimeout(timer);
-        callback();
-      // },1000)
+      callback();
     }
-  }, [componentListString,flag]);
+  }, [componentListString, flag]);
 
   return componentListString.length > 5 ? (
     <div className={styles.container}>
@@ -48,13 +51,9 @@ const QuestionCardComponentView: FC<PropsType> = (props) => {
         .filter((c: { isHidden: any }) => !c.isHidden) // 过滤隐藏的组件
         .map((c: { fe_id: any; props: any; type: any }) => {
           const { fe_id, props, type } = c;
-
           const componentConf = getComponentConfByType(type);
           if (componentConf == null) return null;
-
           const { Component } = componentConf;
-
-          // 拼接 class name
           const wrapperDefaultClassName = styles["component-wrapper"];
           const selectedClassName = styles.selected;
           const wrapperClassName = classNames({
@@ -70,6 +69,21 @@ const QuestionCardComponentView: FC<PropsType> = (props) => {
             </div>
           );
         })}
+      <div>
+        <Button
+          type="dashed"
+          onClick={() => {
+            if (isPublished) {
+              nav(`/question/stat/${id}`);
+            } else {
+              nav(`/question/edit/${id}`);
+            }
+          }}
+          block
+        >
+          {isPublished ? "查看" : "编辑"}
+        </Button>
+      </div>
     </div>
   ) : (
     <div style={{ marginTop: 40 }}>
@@ -77,8 +91,17 @@ const QuestionCardComponentView: FC<PropsType> = (props) => {
         image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
         imageStyle={{ height: 60 }}
       >
-        <Button type="primary" onClick={() => nav(`/question/edit/${id}`)}>
-          添加组件
+        <Button
+          type="primary"
+          onClick={() => {
+            if (isPublished) {
+              nav(`/question/stat/${id}`);
+            } else {
+              nav(`/question/edit/${id}`);
+            }
+          }}
+        >
+          {isPublished ? "查看数据" : "添加组件"}
         </Button>
       </Empty>
     </div>

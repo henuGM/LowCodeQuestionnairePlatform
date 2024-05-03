@@ -12,7 +12,7 @@ import {
 } from "@ant-design/icons";
 import { useNavigate, Link,useLocation } from "react-router-dom";
 import { useRequest } from "ahooks";
-import { duplicateQuestionService, updateQuestionService } from "../services/question";
+import { duplicateQuestionService, updateQuestionService } from "../../services/question";
 type PropsType = {
   id: number;
   title: string;

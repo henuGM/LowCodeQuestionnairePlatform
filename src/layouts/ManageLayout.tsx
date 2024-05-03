@@ -50,7 +50,6 @@ const ManageLayout: FC = () => {
           <Button
             type={pathname.startsWith("/manage/list") ? "default" : "text"}
             size="large"
-            // icon={<BarsOutlined />}
             onClick={() => nav("/manage/list")}
           >
             普通问卷
@@ -58,7 +57,6 @@ const ManageLayout: FC = () => {
           <Button
             type={pathname.startsWith("/manage/star") ? "default" : "text"}
             size="large"
-            // icon={<StarOutlined />}
             onClick={() => nav("/manage/star")}
           >
             星标问卷
@@ -66,7 +64,6 @@ const ManageLayout: FC = () => {
           <Button
             type={pathname.startsWith("/manage/trash") ? "default" : "text"}
             size="large"
-            // icon={<DeleteOutlined />}
             onClick={() => nav("/manage/trash")}
           >
             回收站

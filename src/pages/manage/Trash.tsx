@@ -1,15 +1,28 @@
 import React, { FC, useEffect, useState } from "react";
 import styles from "./common.module.scss";
-import QuestionCard from "../../components/QuestionListView";
+import QuestionCard from "../../components/WaterFallComponents/QuestionListView";
 import { useRequest, useTitle } from "ahooks";
-import { Empty, Typography, Table, Tag, Space, Button, Modal, Spin, message } from "antd";
+import {
+  Empty,
+  Typography,
+  Table,
+  Tag,
+  Space,
+  Button,
+  Modal,
+  Spin,
+  message,
+} from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import ListSearch from "../../components/ListSearch";
 import useLoadingQuestionListData from "../../hooks/useLoadQuestionListService";
 import ListPage from "../../components/ListPage";
-import { deleteQuestionService, updateQuestionService } from "../../services/question";
+import {
+  deleteQuestionService,
+  updateQuestionService,
+} from "../../services/question";
 const { Title } = Typography;
-const {confirm}=Modal
+const { confirm } = Modal;
 
 const tableColumns = [
   {
@@ -39,60 +52,71 @@ const tableColumns = [
 
 const Trash: FC = () => {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const { data = {}, loading, refresh } = useLoadingQuestionListData({isDeleted:1});
-  const { list = [], total = 0 } = data;
+  const {
+    data = {},
+    loading,
+    refresh,
+  } = useLoadingQuestionListData({ isDeleted: 1,pageSize:1000 });
+  const { list = [] } = data;
+  const filterList=list.filter((item: any) => item.isDeleted)
+  const total=filterList.length;
   useTitle("问卷-----回收站");
 
-  const {run:recover,}=useRequest(
-    async ()=>{
-      for await (const id of selectedIds){
-        await updateQuestionService(id,{isDeleted:0})
+  const { run: recover } = useRequest(
+    async () => {
+      for await (const id of selectedIds) {
+        await updateQuestionService(id, { isDeleted: 0 });
       }
-    },{
-      manual:true,
-      onSuccess(){
-        message.success('回收成功');
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success("回收成功");
         refresh();
         setSelectedIds([]);
       },
-      debounceWait:500
+      debounceWait: 500,
     }
-  )
+  );
 
-  const {run:deleteQuestion}=useRequest(
-    async ()=> await deleteQuestionService(selectedIds),
+  const { run: deleteQuestion } = useRequest(
+    async () => await deleteQuestionService(selectedIds),
     {
-      manual:true,
-      onSuccess(){
-        message.success('删除成功');
-        refresh()
+      manual: true,
+      onSuccess() {
+        message.success("删除成功");
+        refresh();
         setSelectedIds([]);
-      }
+      },
     }
-  )
+  );
 
-  const del=()=>{
-    confirm(
-      {
-        title:'确认彻底删除该问卷？',
-        icon:<ExclamationCircleOutlined/>,
-        content:'删除以后不可找回',
-        onOk:()=> deleteQuestion()
-      }
-    )
-  }
+  const del = () => {
+    confirm({
+      title: "确认彻底删除该问卷？",
+      icon: <ExclamationCircleOutlined />,
+      content: "删除以后不可找回",
+      onOk: () => deleteQuestion(),
+    });
+  };
   const TableElem = (
     <>
       <div style={{ marginBottom: "16px" }}>
         <Space>
-          <Button type="primary" disabled={selectedIds.length === 0} onClick={recover}>
+          <Button
+            type="primary"
+            disabled={selectedIds.length === 0}
+            onClick={recover}
+          >
             恢复
           </Button>
-          <Button danger disabled={selectedIds.length === 0} onClick={del}>删除</Button>
+          <Button danger disabled={selectedIds.length === 0} onClick={del}>
+            删除
+          </Button>
         </Space>
       </div>
       <Table
-        dataSource={list.filter((item:any) => item.isDeleted)}
+        dataSource={filterList}
         columns={tableColumns}
         pagination={false}
         rowKey={(p) => p.id}
@@ -106,27 +130,23 @@ const Trash: FC = () => {
       />
     </>
   );
-  useEffect(()=>{
+  useEffect(() => {
     console.log(selectedIds);
-  },[selectedIds]);
+  }, [selectedIds]);
   return (
     <>
-      {/* <div className={styles.header}>
-        <div className={styles.left}>
-          <Title level={3}>回收站</Title>
-        </div>
-        <div className={styles.right}><ListSearch/></div>
-      </div> */}
       <div className={styles.content}>
-      {loading&&(
-          <div style={{textAlign:"center",marginTop:'-22px'}}>
-            <Spin/>
+        {loading && (
+          <div style={{ textAlign: "center", marginTop: "-22px" }}>
+            <Spin />
           </div>
         )}
-        {!loading&&list.length === 0 && <Empty description="暂无数据" />}
-        {list.length > 0 && TableElem}
+        {!loading && filterList.length === 0 && <Empty description="暂无数据" />}
+        {filterList.length > 0 && TableElem}
       </div>
-      <div className={styles.footer}><ListPage total={total} /></div>
+      {/* <div className={styles.footer}>
+        <ListPage total={total} />
+      </div> */}
     </>
   );
 };

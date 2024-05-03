@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import styles from "./common.module.scss";
-import QuestionCard from "../../components/QuestionListView";
+import QuestionCard from "../../components/WaterFallComponents/QuestionListView";
 import { useTitle } from "ahooks";
 import { Empty, Spin, Typography } from "antd";
 import ListSearch from "../../components/ListSearch";
